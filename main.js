@@ -1,3 +1,4 @@
+// Dictionary to store character-to-number mappings
 const dict = {};
 
 //  uppercase mappings
@@ -44,12 +45,24 @@ lowercaseMapping.forEach(([letters, num]) => {
   });
 });
 
-// Convert function
+// Convert function => SOAL NO 1
 const convertToNumbers = (sentence) =>
   sentence
     .split("")
     .map((char) => dict[char] || char) // Ignore undefined characters
     .join(" ");
+
+// Alternating Sum/Subtraction Function => SOAL NO 2
+const alternatingSumSubtraction = (numbers) => {
+  let total = parseInt(numbers[0], 10); // Start with the first number
+
+  for (let i = 1; i < numbers.length; i++) {
+    const num = parseInt(numbers[i], 10);
+    total = i % 2 === 1 ? total + num : total - num; // Alternate: + for odd indexes, - for even
+  }
+
+  return total;
+};
 
 // Read input from console
 const readline = require("readline");
@@ -59,6 +72,16 @@ const rl = readline.createInterface({
 });
 
 rl.question("Enter text: ", (sentence) => {
-  console.log(`Converted: ${convertToNumbers(sentence)}`);
+  // Convert string to numbers
+  const converted = convertToNumbers(sentence);
+  console.log(`~ CASE 1 ~ || Converted: ${converted}`);
+
+  // Convert string of numbers to array of numbers
+  const numbers = converted.split(" ").map(Number);
+
+  // Calculate alternating sum/subtraction
+  const result = alternatingSumSubtraction(numbers);
+  console.log(`~ CASE 2 ~ || Alternating sum/subtraction: ${result}`);
+
   rl.close();
 });
