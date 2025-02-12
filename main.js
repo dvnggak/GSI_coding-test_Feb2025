@@ -49,6 +49,7 @@ reverseDict["9"] = "N";
 const populateDictionary = (mapping) => {
   mapping.forEach(([letters, num]) => {
     letters.forEach((letter) => {
+      // Add each letter to the dictionary, mapping to the number value
       dict[letter] = num;
     });
   });
@@ -99,6 +100,7 @@ const breakIntoSequence = (num) => {
     sequence.push(j);
     remaining -= j;
 
+    // Toggle between 0 and 1, to add alternating numbers
     if (j === 0) {
       j = 1;
     } else {
@@ -112,13 +114,13 @@ const breakIntoSequence = (num) => {
 // Convert to letters function => SOAL NO 3
 const convertToLetters = (num) => {
   const sequence = breakIntoSequence(num);
-  return sequence.map((digit) => reverseDict[digit] || "A").join(" ");
+  return sequence.map((digit) => reverseDict[digit] || "A").join(" "); // Convert numbers to letters
 };
 
 const convertLettersToNumbers = (letters) => {
   return letters.split(" ").map((char) => {
     return (
-      Object.keys(reverseDict).find((key) => reverseDict[key] === char) || "0"
+      Object.keys(reverseDict).find((key) => reverseDict[key] === char) || "0" // Convert letters to numbers
     );
   });
 };
@@ -127,6 +129,7 @@ const convertLettersToNumbers = (letters) => {
 const finalTransformation = (letterSequence) => {
   let numbers = convertLettersToNumbers(letterSequence);
 
+  // Modify the second last number, 1 to the second last number
   if (numbers.length > 1) {
     let secondLastIndex = numbers.length - 2;
 
@@ -151,10 +154,10 @@ const finalTransformation = (letterSequence) => {
 const transformLettersToNumbers = (letterSequence) => {
   let numbers = convertLettersToNumbers(letterSequence);
 
-  // Transformasi awal (mengikuti pola sebelumnya)
   let transformedNumbers = numbers.map((num) => {
     let newNum = parseInt(num);
 
+    // Modify the number based on the rules
     if (newNum === 2) return 3; // E -> 3
     if (newNum === 4) return 5; // I -> 5
     if (newNum === 0) return 1; // A -> 1
